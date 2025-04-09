@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow rounded-lg p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Welcome to MediTAI</h1>
+    
+    {% if user.is_authenticated %}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="{% url 'medication_list' %}" class="bg-blue-50 hover:bg-blue-100 p-6 rounded-lg transition duration-300">
+                <div class="text-blue-600 mb-3">
+                    <i class="fas fa-pills text-4xl"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-2">Medications</h2>
+                <p class="text-gray-600">Manage your medications and schedules</p>
+            </a>
+            
+            <a href="{% url 'appointment_list' %}" class="bg-green-50 hover:bg-green-100 p-6 rounded-lg transition duration-300">
+                <div class="text-green-600 mb-3">
+                    <i class="fas fa-calendar-check text-4xl"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-2">Appointments</h2>
+                <p class="text-gray-600">Schedule and track medical appointments</p>
+            </a>
+            
+            <a href="{% url 'contact_list' %}" class="bg-red-50 hover:bg-red-100 p-6 rounded-lg transition duration-300">
+                <div class="text-red-600 mb-3">
+                    <i class="fas fa-user-md text-4xl"></i>
+                </div>
+                <h2 class="text-xl font-semibold mb-2">Emergency Contacts</h2>
+                <p class="text-gray-600">Manage your emergency contacts</p>
+            </a>
+        </div>
+    {% else %}
+        <div class="text-center py-12">
+            <h2 class="text-2xl font-semibold mb-4">Your Personal Health Companion</h2>
+            <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                MediTAI helps you manage medications, appointments, and emergency contacts in one place.
+            </p>
+            <div class="space-x-4">
+                <a href="{% url 'signup' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium inline-block">
+                    Get Started
+                </a>
+                <a href="{% url 'login' %}" class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium inline-block">
+                    Login
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
