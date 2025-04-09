@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Medication{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">
+        {% if form.instance.pk %}Edit Medication{% else %}Add New Medication{% endif %}
+    </h1>
+    
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="id_name" class="block text-sm font-medium text-gray-700">Medication Name*</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.name.errors }}</p>
+                {% endif %}
+            </div>
+            
+            <div>
+                <label for="id_dosage" class="block text-sm font-medium text-gray-700">Dosage*</label>
+                {{ form.dosage }}
+                {% if form.dosage.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.dosage.errors }}</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div>
+            <label for="id_schedule" class="block text-sm font-medium text-gray-700">Schedule*</label>
+            {{ form.schedule }}
+            {% if form.schedule.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.schedule.errors }}</p>
+            {% endif %}
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label for="id_start_date" class="block text-sm font-medium text-gray-700">Start Date</label>
+                {{ form.start_date }}
+            </div>
+            
+            <div>
+                <label for="id_end_date" class="block text-sm font-medium text-gray-700">End Date</label>
+                {{ form.end_date }}
+            </div>
+        </div>
+        
+        <div>
+            <label for="id_notes" class="block text-sm font-medium text-gray-700">Notes</label>
+            {{ form.notes }}
+        </div>
+        
+        <div class="flex items-center">
+            {{ form.is_active }}
+            <label for="id_is_active" class="ml-2 block text-sm text-gray-700">Active</label>
+        </div>
+        
+        <div class="flex justify-end space-x-3 pt-4">
+            <a href="{% url 'medication_list' %}" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-md">
+                Cancel
+            </a>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                {% if form.instance.pk %}Update{% else %}Add{% endif %} Medication
+            </button>
+        </div>
+    </form>
+</div>
+
+<style>
+    input, select, textarea {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.375rem;
+        margin-top: 0.25rem;
+    }
+    input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    .errorlist {
+        color: #ef4444;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+    }
+</style>
+{% endblock %}
